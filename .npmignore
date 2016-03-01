@@ -1,0 +1,23 @@
+# Test and Code Quality Items
+test
+coverage
+reports
+
+# Elastic Beanstalk
+.ebextensions
+.elasticbeanstalk
+
+# PDFs
+pdf
+
+# Module Configs
+.buddyrc
+.eslintignore
+.eslintrc
+.jscsrc
+.jshintignore
+.jshintrc
+.jsinspectrc
+.nsprc
+.travis.yml
+nodemon.json
