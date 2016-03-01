@@ -3,9 +3,6 @@
   "version": "1.0.0",
   "description": "Backend for the Octocard MEAN stack app",
   "main": "index.js",
-  "scripts": {
-    "test": "echo \"Error: no test specified\" && exit 1"
-  },
   "repository": {
     "type": "git",
     "url": "git+https://github.com/Octocard/dat-ass.git"
@@ -15,5 +12,12 @@
   "bugs": {
     "url": "https://github.com/Octocard/dat-ass/issues"
   },
-  "homepage": "https://github.com/Octocard/dat-ass#readme"
+  "homepage": "https://github.com/Octocard/dat-ass#readme",
+  "scripts": {
+    "lint": "eslint . && jscs . && jsinspect . && buddy --detect-objects user.js",
+    "security": "nsp check",
+    "cover": "istanbul cover _mocha -- --check-leaks --bail --timeout=25000 test && istanbul check-coverage --statements 50 --branches 50 --functions 50 --lines 50",
+    "test": "mocha --check-leaks --timeout=25000 test",
+    "test-ci": "npm run lint && npm run security && npm run cover"
+  }
 }

@@ -2,9 +2,7 @@
 {
   "excludeFiles": [
     "node_modules/*",
-    "learn/*",
     "coverage/*",
-    "test/karma/*"
   ],
   "fileExtensions": [
     ".js"
