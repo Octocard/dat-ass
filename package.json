@@ -19,5 +19,18 @@
     "cover": "istanbul cover _mocha -- --check-leaks --bail --timeout=25000 test && istanbul check-coverage --statements 50 --branches 50 --functions 50 --lines 50",
     "test": "mocha --check-leaks --timeout=25000 test",
     "test-ci": "npm run lint && npm run security && npm run cover"
+  },
+  "dependencies": {
+    "bluebird": "^3.3.3",
+    "github": "^0.2.4"
+  },
+  "devDependencies": {
+    "buddy.js": "^0.9.2",
+    "eslint": "^2.2.0",
+    "istanbul": "^0.4.2",
+    "jscs": "^2.10.1",
+    "jsinspect": "^0.8.0",
+    "mocha": "^2.4.5",
+    "nsp": "^2.2.0"
   }
 }
