@@ -52,6 +52,6 @@
     };
 
     // module.exports.importUser('DavidTPate');
-    module.exports.importRepository('hapijs', 'joi');
+    // module.exports.importRepository('nodejs', 'node');
 
 }());
