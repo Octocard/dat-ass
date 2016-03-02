@@ -44,7 +44,10 @@
                 .then(() => {
                     return Repository.getPublicRepository(github, organizationName, repositoryName);
                 })
-                .then(Repository.getStatistics);
+                .then(Repository.getStatistics)
+                .then((repositoryStats) => {
+                    debugger;
+                });
         } 
     };
 

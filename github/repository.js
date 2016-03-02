@@ -36,8 +36,15 @@
                     Authorization: "Basic " + new Buffer(username + ":" + password, "ascii").toString("base64"),
                     'User-Agent': 'Dat-Ass-Inspector'
                 }
-            }).then((body) => {
-                debugger;
+            }).then((statistics) => {
+                return statistics.map((contributor) => {
+                   contributor.weeks = contributor.weeks.filter((week) => {
+                        return week.a > 0 || week.c > 0 || week.d > 0;
+                   });
+                    return contributor;
+                }).filter((contributor) => {
+                    return contributor.weeks.length > 0;
+                });
             });
         }
     };
