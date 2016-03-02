@@ -38,14 +38,69 @@ app.get('/', function (req, res) {
 });
 
 app.get('/joi', function (req, res) {
-    Org.find({"name": "hapijs"}, function (err, orgs) {
-      var contributors = orgs[0].repos[0].contributors;
-      contributors.forEach(function (user) {
-        // do stuff with the user
-        console.log(contributors[0])
-      });
+    // Org.find({"name": "hapijs"}, function (err, orgs) {
+    //   var contributors = orgs[0].repos[0].contributors;
+    //   contributors.forEach(function (user) {
+    //     // do stuff with the user
+    //     console.log(contributors[0])
+    //   });
+    // });
+    github.importRepository('expressjs', 'session').spread((repository, repositoryStats) => {
+        var organization = new Org({
+          name: 'expressjs',
+          repos: []
+        });
+        var repository = new Repo({
+          name: 'session',
+          contributors: []
+        });
+        repositoryStats.forEach(function (stat) {
+            var contributor = new Contrib({
+              name: stat.author.login,
+              totalCommits: stat.total,
+              contributions: stat.weeks
+            });
+            return repository.contributors.push(contributor);
+        });
+        Org.find({"name": organization.name}, function(err, org) {
+          if (err) return handleError(err);
+          if (org) {
+            return;
+          }
+        })
+        organization.repos.push(repository);
+        organization.save(function (err) {
+          if (err) return handleError(err);
+
+          res.status(200).send(organization);
+        });
     });
 });
+
+app.get('/octocard/:username', function (req, res) {
+    var contributor = [];
+    Org.find(function (err, orgs) {
+      if (err) return handleError(err);
+      orgs.forEach(function (organization) {
+        organization.repos.forEach(function (repo) {
+          repo.contributors.forEach(function (user) {
+            var username = user.name.toLowerCase();
+            var paramsUser = req.params.username.toLowerCase()
+            if (username === paramsUser) {
+              return contributor.push({
+                org: organization.name,
+                repo: repo.name,
+                contributions: user.contributions,
+                totalCommits: user.totalCommits
+              })
+            }
+          });
+        });
+      });
+
+      return res.status(200).json(contributor);
+    });
+})
 
 // seeding db
 // github.importRepository('hapijs', 'joi').spread((repository, repositoryStats) => {
