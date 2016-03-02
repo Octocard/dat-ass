@@ -22,8 +22,9 @@
   },
   "dependencies": {
     "bluebird": "^3.3.3",
-    "body-parser": "^1.15.0",
     "github": "^0.2.4",
+    "request-promise": "^2.0.1"
+    "body-parser": "^1.15.0",
     "method-override": "^2.3.5"
   },
   "devDependencies": {
