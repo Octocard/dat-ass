@@ -35,7 +35,8 @@
                         return {
                             linesAdded: week.a,
                             linesDeleted: week.d,
-                            numCommits: week.c
+                            numCommits: week.c,
+                            startDayOfWeek: new Date(week.w * 1000)
                         };
                     });
                     return contributor;
