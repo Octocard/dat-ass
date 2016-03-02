@@ -45,10 +45,11 @@
                     return Repository.getPublicRepository(github, organizationName, repositoryName);
                 })
                 .then(Repository.getStatistics);
-        } 
+        }
     };
 
     // module.exports.importUser('DavidTPate');
     //module.exports.importRepository('hapijs', 'joi');
+    // module.exports.importRepository('nodejs', 'node');
 
 }());
