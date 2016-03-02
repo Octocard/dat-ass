@@ -38,42 +38,12 @@ app.get('/', function (req, res) {
 });
 
 app.get('/joi', function (req, res) {
-    // Org.find({"name": "hapijs"}, function (err, orgs) {
-    //   var contributors = orgs[0].repos[0].contributors;
-    //   contributors.forEach(function (user) {
-    //     // do stuff with the user
-    //     console.log(contributors[0])
-    //   });
-    // });
-    github.importRepository('expressjs', 'session').spread((repository, repositoryStats) => {
-        var organization = new Org({
-          name: 'expressjs',
-          repos: []
-        });
-        var repository = new Repo({
-          name: 'session',
-          contributors: []
-        });
-        repositoryStats.forEach(function (stat) {
-            var contributor = new Contrib({
-              name: stat.author.login,
-              totalCommits: stat.total,
-              contributions: stat.weeks
-            });
-            return repository.contributors.push(contributor);
-        });
-        Org.find({"name": organization.name}, function(err, org) {
-          if (err) return handleError(err);
-          if (org) {
-            return;
-          }
-        })
-        organization.repos.push(repository);
-        organization.save(function (err) {
-          if (err) return handleError(err);
-
-          res.status(200).send(organization);
-        });
+    Org.find({"name": "hapijs"}, function (err, orgs) {
+      var contributors = orgs[0].repos[0].contributors;
+      contributors.forEach(function (user) {
+        // do stuff with the user
+        console.log(contributors[0])
+      });
     });
 });
 
