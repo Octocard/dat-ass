@@ -1,29 +1,20 @@
 'use strict';
-(function() { 
-    const Github = require('github');
+(function () {
     const Promise = require('bluebird');
+    const Repository = require('./repository');
 
-    var github = new Github({
-        // required
-        version: '3.0.0',
-        debug: false,
-        protocol: 'https',
-        host: 'api.github.com',
-        timeout: 5000,
-        headers: {
-            'user-agent': 'Dat-Ass-Crawler' // GitHub is happy with a unique user agent
+    module.exports = {
+        importUser: (github, username) => {
+            return github.user.getAsync({
+                    username: username
+                })
+                .then((res) => {
+                    // User exists, let's grab their Public Repos.
+                    return Repository.getPublicRepositories(github, res);
+                })
+                .then((repositories) => {
+                    debugger;
+                });
         }
-    });
-
-    function authenticate() {
-        return new Promise(function (resolve) {
-            github.authenticate({
-                type: 'basic',
-                username: process.env.GITHUB_USERNAME,
-                password: process.env.GITHUB_PASSWORD || process.env.GITHUB_ACCESS_TOKEN
-            });
-            resolve();
-        });
-    }
-
+    };
 }());
