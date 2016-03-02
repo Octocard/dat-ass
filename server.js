@@ -4,7 +4,11 @@ var express = require('express'),
     app = express(),
     mongoose = require('mongoose'),
     bodyParser = require('body-parser'),
-    methodOverride = require('method-override');
+    methodOverride = require('method-override'),
+    github = require('./github'),
+    Org = require('./models/orgs'),
+    Repo = require('./models/repo'),
+    Contrib = require('./models/contrib');
 
 mongoose.connect('mongodb://localhost/dat-ass');
 
@@ -33,8 +37,41 @@ app.get('/', function (req, res) {
     res.send('Check out Dat Ass!!!');
 });
 
-app.get('/')
+app.get('/joi', function (req, res) {
+    Org.find({"name": "hapijs"}, function (err, orgs) {
+      var contributors = orgs[0].repos[0].contributors;
+      contributors.forEach(function (user) {
+        // do stuff with the user
+        console.log(contributors[0])
+      });
+    });
+});
 
+// seeding db
+// github.importRepository('hapijs', 'joi').spread((repository, repositoryStats) => {
+//     var organization = new Org({
+//       name: 'hapijs',
+//       repos: []
+//     });
+//     var repository = new Repo({
+//       name: 'joi',
+//       contributors: []
+//     });
+//     repositoryStats.forEach(function (stat) {
+//         var contributor = new Contrib({
+//           name: stat.author.login,
+//           totalCommits: stat.total,
+//           contributions: stat.weeks
+//         });
+//         return repository.contributors.push(contributor);
+//     });
+//     organization.repos.push(repository);
+//     organization.save(function (err) {
+//       if (err) return handleError(err);
+//
+//       res.status(200).send(organization);
+//     });
+// });
 
 app.listen('8081');
 exports.module = app;

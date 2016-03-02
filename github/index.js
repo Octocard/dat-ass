@@ -44,14 +44,11 @@
                 .then(() => {
                     return Repository.getPublicRepository(github, organizationName, repositoryName);
                 })
-                .then(Repository.getStatistics)
-                .spread((repository, repositoryStats) => {
-                    debugger;
-                });
+                .then(Repository.getStatistics);
         } 
     };
 
     // module.exports.importUser('DavidTPate');
-    module.exports.importRepository('hapijs', 'joi');
+    //module.exports.importRepository('hapijs', 'joi');
 
 }());
