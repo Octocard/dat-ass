@@ -45,7 +45,7 @@
                     return Repository.getPublicRepository(github, organizationName, repositoryName);
                 })
                 .then(Repository.getStatistics)
-                .then((repositoryStats) => {
+                .spread((repository, repositoryStats) => {
                     debugger;
                 });
         } 

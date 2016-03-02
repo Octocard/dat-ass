@@ -37,14 +37,16 @@
                     'User-Agent': 'Dat-Ass-Inspector'
                 }
             }).then((statistics) => {
-                return statistics.map((contributor) => {
-                   contributor.weeks = contributor.weeks.filter((week) => {
-                        return week.a > 0 || week.c > 0 || week.d > 0;
-                   });
-                    return contributor;
-                }).filter((contributor) => {
-                    return contributor.weeks.length > 0;
-                });
+                return [repository,
+                    statistics.map((contributor) => {
+                        contributor.weeks = contributor.weeks.filter((week) => {
+                            return week.a > 0 || week.c > 0 || week.d > 0;
+                        });
+                        return contributor;
+                    }).filter((contributor) => {
+                        return contributor.weeks.length > 0;
+                    })
+                ];
             });
         }
     };
